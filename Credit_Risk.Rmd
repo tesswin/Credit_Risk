@@ -67,5 +67,6 @@ Total_duplicate_rows <- Inital_rows - Rows_no_duplicates
 
 ```{r }
 summary(cr_data)
+#j
 
 ```
