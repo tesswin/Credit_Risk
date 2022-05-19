@@ -19,8 +19,10 @@ This paper analyses the probability of default.
 ## Analysis approach and coding 
 ```{r loading_libraries}
 # install.packages("usethis")
+# install.packages("tidyverse")
 library(usethis)
 library(tidyverse)
+
 
 
 
@@ -31,12 +33,39 @@ library(tidyverse)
 edit_r_environ() 
 usethis::use_git_config(user.name = "tesswin", 
                         user.email = "tesswin@gmail.com")
+# action requiried - initial commit 
+# After initial commmit, run the following codes to create repository and push to codes to github 
 usethis::use_github(protocol = "https", 
                     auth_token = Sys.getenv("GITHUB_PAT"))
-
 ```
 
+```{r loading_data}
+# loading the data into R environment
+cr_data <- readr::read_csv("assignment_data.csv")
+```
 
+```{r checking_data}
+# checking the structure of data 
+str(cr_data)
+```
 
+```{r categorical_data}
+# Converting the categorical variables into factors 
+factor_columns <- c(3:5,7:13,26:39)
+cr_data[factor_columns] <- lapply (cr_data[factor_columns], as.factor)
+str(cr_data)
+```
 
-## Loading data 
+```{r delete_duplicate_rows}
+Inital_rows <- nrow(cr_data)
+# removing duplicate rows 
+cr_data <- dplyr::distinct(cr_data)
+Rows_no_duplicates <- nrow(cr_data)
+Total_duplicate_rows <- Inital_rows - Rows_no_duplicates
+# 1339 duplicate records are deleted 
+```
+
+```{r }
+summary(cr_data)
+
+```
